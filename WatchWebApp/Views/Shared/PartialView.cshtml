@@ -1,0 +1,140 @@
+﻿@model WatchWebApp.Models.ImageModel
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @using (Html.BeginForm("AddItem", "WatchCatalog", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <div class="modal-body">
+                    @Html.AntiForgeryToken()
+                    @*<hr />*@
+
+                    <div class="row">
+                        <div class="col-md-8 offset-2">
+                            @Html.ValidationSummary(false,"", new { @class = "text-danger" })
+                            <div class="form-group">
+                                @*  @Html.ValidationMessageFor(m => m.ImgUrl, new{@class = "text-danger"})*@
+                                @*@Html.ValidationSummary(false,"Image field is required", new {@class = "text-danger"})*@
+                                @Html.LabelFor(m => m.File, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-10">
+                                    @Html.EditorFor(m => m.File, new { @class = "form-control" })
+                                    @*<input type="file" name="ImageFile" required />*@
+                                    @*@Html.TextBoxFor("file", new { @class = "form-control" })*@
+                                </div>
+                            </div>
+                            <br />
+                            <div class="form-group">
+                                @Html.ValidationMessageFor(m => m.ItemName, "", new{@class = "text-danger"})
+                                @Html.LabelFor(m => m.ItemName, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.ItemName, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.ValidationMessageFor(m => m.ShortDescription)
+                                @Html.LabelFor(m => m.ShortDescription, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.ShortDescription, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.ValidationMessageFor(m => m.FullDescription)
+                                @Html.LabelFor(m => m.FullDescription, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.FullDescription, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.ValidationMessageFor(m => m.Price)
+                                @Html.LabelFor(m => m.Price, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.Price, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.ValidationMessageFor(m => m.Caliber)
+                                @Html.LabelFor(m => m.Caliber, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.Caliber, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.ValidationMessageFor(m => m.Movement)
+                                @Html.LabelFor(m => m.Movement, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.Movement, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.ValidationMessageFor(m => m.Chronograph)
+                                @Html.LabelFor(m => m.Chronograph, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.Chronograph, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.ValidationMessageFor(m => m.Weight)
+                                @Html.LabelFor(m => m.Weight, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.Weight, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.ValidationMessageFor(m => m.Height)
+                                @Html.LabelFor(m => m.Height, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.Height, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.ValidationMessageFor(m => m.Diameter)
+                                @Html.LabelFor(m => m.Diameter, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.Diameter, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.ValidationMessageFor(m => m.Thickness)
+                                @Html.LabelFor(m => m.Thickness, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.Thickness, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.ValidationMessageFor(m => m.Jewel)
+                                @Html.LabelFor(m => m.Jewel, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.Jewel, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.ValidationMessageFor(m => m.CaseMaterial)
+                                @Html.LabelFor(m => m.CaseMaterial, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.CaseMaterial, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.ValidationMessageFor(m => m.StrapMaterial)
+                                @Html.LabelFor(m => m.StrapMaterial, new { @class = "col-md-4 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.StrapMaterial, new { @class = "form-control" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success">Save changes</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>

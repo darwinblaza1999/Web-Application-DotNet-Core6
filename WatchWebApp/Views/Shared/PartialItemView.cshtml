@@ -1,0 +1,15 @@
+﻿@model IList<WatchModel2>
+@*@{
+    ViewData["Title"] = "List of Item";
+}
+<h1>@ViewData["Title"]</h1>*@
+@if (Model != null)
+{
+    @foreach (var item in Model)
+    {
+        <img src="@item.Image" alt="Watch Image" width="50%" />
+    }
+}
+
+
+
