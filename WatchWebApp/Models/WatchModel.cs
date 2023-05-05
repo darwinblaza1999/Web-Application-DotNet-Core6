@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Data;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using static WatchWebApp.Models.WatchModel;
 
@@ -7,17 +8,18 @@ namespace WatchWebApp.Models
 {
     public class ImageModel:MainModel
     {
-        [Display(Name = "Upload image")]
+        [Required(ErrorMessage ="Please select image")]
+        [Display(Name = "Image")]
         public IFormFile? File { get; set; }
     }
     public class WatchModel : MainModel
     {
-        [Display(Name = "Upload image")]
+        [Display(Name = "Image")]
         public string? Image { get; set; }
     }
     public class ImageModelV2:MainModel
     {
-        [Display(Name = "Upload image")]
+        [Display(Name = "Image")]
         public IFormFile? File { get; set; }
 
         [Required]
@@ -35,65 +37,67 @@ namespace WatchWebApp.Models
         [Display(Name = "Item Name")]
         public string? ItemName { get; set; }
 
-        [DataType(DataType.Text)]
-        [Display(Name = "Short Description")]
         [Required]
+        [StringLength(100, MinimumLength = 10)]
+        [DataType(DataType.MultilineText)]
+        [Display(Name = "Short Description")]
         public string? ShortDescription { get; set; }
 
+        [StringLength(500, MinimumLength = 20)]
         [DataType(DataType.MultilineText)]
         [Display(Name = "Full Description")]
         public string? FullDescription { get; set; }
 
-        [Range(0, float.MaxValue, ErrorMessage = "Please valid input number")]
-        [Display(Name = "Price")]
         [Required]
+        [DisplayFormat(DataFormatString = "{0:C0}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Currency)]
+        [Range(1,float.MaxValue, ErrorMessage ="Please enter a value greater than 0")]
+        [Display(Name = "Price($)")]
         public decimal Price { get; set; }
 
-        [Display(Name = "Caliber")]
-        [DataType(DataType.Text)]
         [Required]
+        [Display(Name = "Caliber")]
         public string? Caliber { get; set; }
 
-        [Display(Name = "Movement")]
-        [DataType(DataType.Text)]
         [Required]
+        [Display(Name = "Movement")]
         public string? Movement { get; set; }
 
-        [Display(Name = "Chronograph")]
-        [DataType(DataType.Text)]
         [Required]
+        [Display(Name = "Chronograph")]
         public string? Chronograph { get; set; }
 
-        [Display(Name = "Weight")]
-        [DataType(DataType.Text)]
         [Required]
-        public string? Weight { get; set; }
+        [Range(1, float.MaxValue, ErrorMessage = "Please enter a value greater than 0")]
+        [Display(Name = "Weight(kg)")]
+        public decimal Weight { get; set; }
 
-        [Display(Name = "Height")]
-        [DataType(DataType.Text)]
         [Required]
-        public string? Height { get; set; }
+        [Range(1, float.MaxValue, ErrorMessage = "Please enter a value greater than 0")]
+        [Display(Name = "Height(cm)")]
+        public decimal Height { get; set; }
 
+        [Required]
         [Display(Name = "Diameter")]
         [DataType(DataType.Text)]
-        [Required]
         public string? Diameter { get; set; }
 
-        [Display(Name = "Thickness")]
-        [DataType(DataType.Text)]
         [Required]
-        public string? Thickness { get; set; }
+        [Display(Name = "Thickness(mm)")]
+        public decimal Thickness { get; set; }
 
-        [Display(Name = "Jewel")]
-        [Range(0, Int32.MaxValue, ErrorMessage = "Please input valid integer")]
         [Required]
+        [Range(1, float.MaxValue, ErrorMessage = "Please enter a value greater than 0")]
+        [RegularExpression("([0-9]+)", ErrorMessage = "Please enter valid Number")]
+        [Display(Name = "Jewel")]
         public int Jewel { get; set; }
 
+        [Required]
         [Display(Name = "Case Material")]
         [DataType(DataType.Text)]
-        [Required]
         public string? CaseMaterial { get; set; }
 
+        [Required]
         [Display(Name = "Strap Material")]
         [DataType(DataType.Text)]
         public string? StrapMaterial { get; set; }
@@ -102,12 +106,25 @@ namespace WatchWebApp.Models
     {
         [Required]
         [Display(Name = "Item Code")]
-        [Range(0, Int32.MaxValue, ErrorMessage = "Please input valid integer")]
         public int ItemNo { get; set; }
+
+        [Display(Name = "Image")]
+        public IFormFile? File { get; set; }
     }
     public class ResData
     {
         public WatchModel2[] data { get; set; }
+    }
+    public class BlobUpload
+    {
+        public IFormFile? file { get; set;}
+    }
+    public class WatchImage
+    {
+        public string? Image { get; set;}
+        [Required]
+        public IFormFile File { get; set;}
+        public int ItemNo { get; set; }
     }
 }
     

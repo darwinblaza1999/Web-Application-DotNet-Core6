@@ -1,78 +1,290 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - WatchWebApp</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/temp/styles.css" />
-    <link rel="stylesheet" href="~/temp/partial.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/WatchWebApp.styles.css" asp-append-version="true" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" />
-</head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container px-1 px-lg-1">
-                <a class="navbar-brand" href="#!">CatalogSite</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#!">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" asp-controller="WatchCatalog" asp-action="AddItem">Add Item</a></li>
-                        @*<li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#!">All Products</a></li>
-                                <li><hr class="dropdown-divider" /></li>
-                                <li><a class="dropdown-item" asp-controller="Home" asp-action="PartialView">Add Item</a></li>
-                                <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
-                            </ul>
-                        </li>*@
-                    </ul>
+    <title>Catalog Watch</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--===============================================================================================-->
+    <link rel="icon" type="image/png" href="https://avablobstorage2.blob.core.windows.net/msavaaccenture/favicon.png" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/design/vendor/bootstrap/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/design/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/design/fonts/iconic/css/material-design-iconic-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/design/fonts/linearicons-v1.0.0/icon-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/design/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/design/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/design/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/design/vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/design/vendor/slick/slick.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/design/vendor/MagnificPopup/magnific-popup.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/design/vendor/perfect-scrollbar/perfect-scrollbar.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/design/css/util.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/design/css/main.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/temp/partial.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.min.css">
 
-                </div>
+</head>
+<body class="animsition">
+
+    <!-- Header -->
+    <header class="header-v2">
+        <!-- Header desktop -->
+        <div class="container-menu-desktop trans-03">
+            <div class="wrap-menu-desktop">
+                <nav class="limiter-menu-desktop p-l-45">
+
+                    <!-- Logo desktop -->
+                    <a class="logo" asp-controller="Home" asp-action="Index">
+                        <img src="https://avablobstorage2.blob.core.windows.net/msavaaccenture/logo.png" alt="IMG-LOGO">
+                    </a>
+
+                    <!-- Menu desktop -->
+                    <div class="menu-desktop">
+                        <ul class="main-menu">
+                            <li>
+                                <a asp-controller="Home" asp-action="Index">Home</a>
+                            </li>
+
+                            <li>
+                                <a asp-controller="WatchCatalog" asp-action="AddItem">Add Item</a>
+                            </li>
+
+                            <li>
+                                <a asp-action="ViewShop" asp-controller="WatchCatalog">Shop</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
             </div>
-        </nav>
-        @*<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">WatchWebApp</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="WatchCatalog" asp-action="AddItem">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="WatchCatalog" asp-action="ViewItem">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
+        </div>
+
+        <!-- Header Mobile -->
+        <div class="wrap-header-mobile">
+            <!-- Logo moblie -->
+            <div class="logo-mobile">
+                <a asp-controller="Home" asp-action="Index"><img src="https://avablobstorage2.blob.core.windows.net/msavaaccenture/logo.png" alt="IMG-LOGO"></a>
             </div>
-        </nav>*@
+
+            <!-- Icon header -->
+            <!-- Button show menu -->
+            <div class="btn-show-menu-mobile hamburger hamburger--squeeze">
+                <span class="hamburger-box">
+                    <span class="hamburger-inner"></span>
+                </span>
+            </div>
+        </div>
+
+
+        <!-- Menu Mobile -->
+        <div class="menu-mobile">
+            <ul class="main-menu-m">
+                <li>
+                    <a asp-controller="Home" asp-action="Index">Home</a>
+                    <span class="arrow-main-menu-m">
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </span>
+                </li>
+                <li>
+                    <a asp-controller="WatchCatalog" asp-action="AddItem">Add Item</a>
+                </li>
+
+                <li>
+                    <a asp-action="ViewShop" asp-controller="WatchCatalog">Shop</a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Modal Search -->
     </header>
     <div class="container">
-        <main role="main" class="pb-1">
-            @RenderBody()
-        </main>
+        @RenderBody()
     </div>
 
-    <footer class="border-top footer text-muted">
+    <!-- Footer -->
+    @*<footer class="bg3 p-t-75 p-b-32">*@
+    <footer class="bg3 p-t-10 p-b-10">
         <div class="container">
-            &copy; 2023 - WatchWebApp - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="p-t-40">
+                <div class="flex-c-m flex-w p-b-18">
+                    <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Facebook">
+                        <i class="fa fa-facebook"></i>
+                    </a>
+
+                    <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Twitter">
+                        <i class="fa fa-twitter"></i>
+                    </a>
+
+                    <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Instagram">
+                        <i class="fa fa-instagram"></i>
+                    </a>
+
+                    <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Google Plus">
+                        <i class="fa fa-google-plus"></i>
+                    </a>
+                </div>
+
+                <p class="stext-107 cl6 txt-center">
+                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved
+                </p>
+            </div>
         </div>
     </footer>
+
+    <!-- Back to top -->
+    <div class="btn-back-to-top" id="myBtn">
+        <span class="symbol-btn-back-to-top">
+            <i class="zmdi zmdi-chevron-up"></i>
+        </span>
+    </div>
+    <!--===============================================================================================-->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-    @await RenderSectionAsync("Scripts", required: false)
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <!--===============================================================================================-->
+    <!--===============================================================================================-->
+ @*   <script src="~/design/vendor/jquery/jquery-3.2.1.min.js"></script>*@
+    <!--===============================================================================================-->
+    <script src="~/design/vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/design/vendor/bootstrap/js/popper.js"></script>
+    <script src="~/design/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/design/vendor/daterangepicker/moment.min.js"></script>
+    <script src="~/design/vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/design/vendor/slick/slick.min.js"></script>
+    <script src="~/design/js/slick-custom.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/design/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/design/vendor/sweetalert/sweetalert.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/design/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="~/js/main.js"></script>
+    <!--===============================================================================================-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
+@*    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.js"></script>*@
+@*    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js" 
+    integrity="sha512-rstIgDs0xPgmG6RX1Aba4KV5cWJbAMcvRCVmglpam9SoHZiUCyQVDdH2LPlxoHtrv17XWblE/V/PP+Tr04hbtA==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>*@
+    <!--===============================================================================================-->
+    <script>
+        'use strict'
+
+        // gallery
+        $('.gallery-lb').each(function () { 
+            $(this).magnificPopup({
+                delegate: 'a', 
+                type: 'image',
+                gallery: {
+                    enabled: true
+                },
+                mainClass: 'mfp-fade'
+            });
+        });
+
+        // scroll
+        $('.js-pscroll').each(function () {
+            $(this).css('position', 'relative');
+            $(this).css('overflow', 'hidden');
+            var ps = new PerfectScrollbar(this, {
+                wheelSpeed: 1,
+                scrollingThreshold: 1000,
+                wheelPropagation: false,
+            });
+
+            $(window).on('resize', function () {
+                ps.update();
+            })
+        });
+
+        //validation for number only
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode != 46 && charCode > 31
+                && (charCode < 48 || charCode > 57))
+                return false;
+
+            return true;
+        }
+
+        //decimal textbox validation
+        function limitDec(id) {
+            // find elements
+            var amt = $('.pr')
+            var height = $('.he')
+            var weight = $('.we')
+            var thick = $('.th')
+
+            // handle keyup
+            height.on("keyup", function () {
+                if (isNaN(height.val())) {
+                    height.val(0);
+                }
+                if (height.val().indexOf(".") > -1 && (height.val().split('.')[1].length > 2)) {
+                    height.val(height.val().substring(0, height.val().length - 1));
+                }
+            })
+
+            amt.on("keyup", function () {
+                if (isNaN(amt.val())) {
+                    amt.val(0);
+                }
+                if (amt.val().indexOf(".") > -1 && (amt.val().split('.')[1].length > 2)) {
+                    amt.val(amt.val().substring(0, amt.val().length - 1));
+                }
+            })
+
+            weight.on("keyup", function () {
+                if (isNaN(weight.val())) {
+                    weight.val(0);
+                }
+                if (weight.val().indexOf(".") > -1 && (weight.val().split('.')[1].length > 2)) {
+                    weight.val(weight.val().substring(0, weight.val().length - 1));
+                }
+            })
+
+            thick.on("keyup", function () {
+                if (isNaN(thick.val())) {
+                    thick.val(0);
+                }
+                if (thick.val().indexOf(".") > -1 && (thick.val().split('.')[1].length > 2)) {
+                    thick.val(thick.val().substring(0, thick.val().length - 1));
+                }
+            })
+        }
+    </script>
+
+    <script>
+        var Watch_Url = {
+            del_url: '@Url.Action("DeleteItems","WatchCatalog")',
+            view_url: '@Url.Action("Index","Home")',
+            update_url: '@Url.Action("UpdateItem", "WatchCatalog")',
+            getdetails_url: '@Url.Action("GetDetails", "WatchCatalog")',
+        }
+    </script>
+
+    @section Scripts {
+        @{
+            @await RenderSectionAsync("Scripts", required: false);
+            await Html.RenderPartialAsync("_ValidationScriptsPartial");
+        }
+    }
+
 </body>
 </html>
+

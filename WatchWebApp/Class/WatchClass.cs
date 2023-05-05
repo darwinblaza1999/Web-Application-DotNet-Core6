@@ -8,20 +8,31 @@ using System.Reflection.PortableExecutable;
 using System.Text;
 using WatchWebApp.Models;
 using WatchWebApp.Repository;
+using Microsoft.Extensions.Options;
+using WatchWebApp.Options;
+using Newtonsoft.Json.Linq;
+using System.Reflection;
+using System.Net.Http;
 
 namespace WatchWebApp.Class
 {
     public class WatchClass : IWatch
     {
-        public async Task<Response<object>> AddNewItem(WatchModel model)
+        private readonly AppSettings _settings;
+        public WatchClass(IOptions<AppSettings> settings)
         {
-			var response = new Response<object>();
+            _settings = settings.Value;
+        }
+        public async Task<Response<string>> AddNewItem(WatchModel model, string token)
+        {
+			var response = new Response<string>();
 			try
 			{
-				Uri url = new Uri(string.Format(APIUrl.WatchApi() + "api/Watch/AddItem"));
+				Uri url = new Uri(string.Format(_settings.Url + "api/Watch/AddItem"));
 				ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 				using (var client = new WebClient()) {
 					client.Headers.Add("content-type", "application/json");
+                    client.Headers.Add("Authorization", "Bearer "+ token);
 					response.Data = Encoding.ASCII.GetString(client.UploadData(url, "POST", Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(model))));
 					response.isSuccess = true;
 				}
@@ -33,35 +44,32 @@ namespace WatchWebApp.Class
 				{
 					StreamReader reader = new StreamReader(stream);
 					response.isException = true;
-					response.isSuccess = false;
 					response.Message = reader.ReadToEnd();
 				}
 			}
 			catch (Exception ex)
 			{
                 response.isException = true;
-                response.isSuccess = false;
                 response.Message = ex.Message;
             }
 			return response;
         }
 
-        public async Task<Response<object>> DeleteItem(int id)
+        public async Task<Response<object>> DeleteItem(int id, string token)
         {
             var response = new Response<object>();
             try
             {
-                Uri url = new Uri(string.Format(APIUrl.WatchApi() + "api/Watch/DeleteItem/{0}", id));
+                Uri url = new Uri(string.Format(_settings.Url + "api/Watch/DeleteItem/{0}", id));
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-
                 request.Method = "DELETE";
                 request.ContentType = "application/json";
+                request.Headers.Add("Authorization", "Bearer " + token);
                 StreamReader read = new StreamReader(request.GetResponse().GetResponseStream());
                 var res = read.ReadToEnd();
-                response.Data = JsonConvert.DeserializeObject<DataTable>(res);
                 response.isSuccess = true;
-                response.Message = "";
+                response.Message = "Ok";
             }
             catch (WebException webex)
             {
@@ -84,22 +92,22 @@ namespace WatchWebApp.Class
             return response;
         }
 
-        public async Task<Response<string>> GetAllItem()
+        public async Task<Response<string>> GetAllItem(string token)
         {
             var response = new Response<string>();
             try
             {
-                Uri url = new Uri(string.Format(APIUrl.WatchApi() + "api/Watch/GetAllItem"));
+                Uri url = new Uri(string.Format(_settings.Url + "api/Watch/GetAllItem"));
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
                 request.Method = "GET";
                 request.ContentType = "application/json";
+                request.Headers.Add("Authorization", "Bearer " + token);
                 StreamReader read = new StreamReader(request.GetResponse().GetResponseStream());
                 var res = read.ReadToEnd();
                 response.Data = res;
                 response.isSuccess = true;
-                response.Message = "";
             }
             catch(WebException webex)
             {
@@ -121,22 +129,22 @@ namespace WatchWebApp.Class
             }
             return response;
         }
-        public async Task<Response<string>> GetById(int Id)
+        public async Task<Response<string>> GetById(int Id, string token)
         {
             var response = new Response<string>();
             try
             {
-                Uri url = new Uri(string.Format(APIUrl.WatchApi() + "api/Watch/GetItemById/{0}", Id));
+                Uri url = new Uri(string.Format(_settings.Url + "api/Watch/GetItemById/{0}", Id));
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
 
                 request.Method = "GET";
                 request.ContentType = "application/json";
+                request.Headers.Add("Authorization", "Bearer " + token);
                 StreamReader read = new StreamReader(request.GetResponse().GetResponseStream());
                 var res = read.ReadToEnd();
                 response.Data = res;
                 response.isSuccess = true;
-                response.Message = "";
             }
             catch (WebException webex)
             {
@@ -159,16 +167,50 @@ namespace WatchWebApp.Class
             return response;
         }
 
-        public async Task<Response<object>> UpdateItem(WatchModel2 model)
+        public async Task<Response<string>> UpdateImage(WatchImage model, string token)
         {
-            var response = new Response<object>();
+            var response = new Response<string>();
             try
             {
-                Uri url = new Uri(string.Format(APIUrl.WatchApi() + "api/Watch/UpdateItem"));
+                Uri url = new Uri(string.Format(_settings.Url + "api/Watch/UpdateImage"));
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                 using (var client = new WebClient())
                 {
                     client.Headers.Add("content-type", "application/json");
+                    client.Headers.Add("Authorization", "Bearer " + token);
+                    response.Data = Encoding.ASCII.GetString(client.UploadData(url, "PUT", Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(model))));
+                    response.isSuccess = true;
+                }
+            }
+            catch (WebException webex)
+            {
+                WebResponse webResponse = webex.Response;
+                using (Stream stream = webResponse.GetResponseStream())
+                {
+                    StreamReader reader = new StreamReader(stream);
+                    response.isException = true;
+                    response.Message = reader.ReadToEnd();
+                }
+            }
+            catch (Exception ex)
+            {
+                response.isException = true;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
+
+        public async Task<Response<string>> UpdateItem(WatchModel2 model, string token)
+        {
+            var response = new Response<string>();
+            try
+            {
+                Uri url = new Uri(string.Format(_settings.Url + "api/Watch/UpdateItem"));
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                using (var client = new WebClient())
+                {
+                    client.Headers.Add("content-type", "application/json");
+                    client.Headers.Add("Authorization", "Bearer " + token);
                     response.Data = Encoding.ASCII.GetString(client.UploadData(url, "PUT", Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(model))));
                     response.isSuccess = true;
                 }
@@ -191,37 +233,6 @@ namespace WatchWebApp.Class
                 response.Message = ex.Message;
             }
             return response;
-        }
-
-        public async Task<Response<object>> UploadImageBlob(IFormFile file)
-        {
-            var response = new Response<object>();
-            try
-            {
-                var conString = "DefaultEndpointsProtocol=https;AccountName=msavaaccenturestorage;AccountKey=1lNqO+3lkLKGDaOBwF30motJNwBhGXLS0X8QDWFwRlcPAZV993B6Nt+2b9xcXhE2gCW1ZfXt7kzp+AStAlaelA==;EndpointSuffix=core.windows.net";
-                BlobServiceClient blob = new(conString);
-                BlobContainerClient conclient = blob.GetBlobContainerClient("watchcontainer");
-                await conclient.CreateIfNotExistsAsync();
-
-                if (file != null)
-                {
-                    BlobClient blobClient = conclient.GetBlobClient(file.FileName);
-                    BlobHttpHeaders httpHeaders = new()
-                    {
-                        ContentType = file.ContentType
-                    };
-                    await blobClient.UploadAsync(file.OpenReadStream(), httpHeaders);
-
-                    response.isSuccess = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                response.isException = true;
-                response.Message = ex.Message;
-            }
-            return response;
-            
         }
     }
 }

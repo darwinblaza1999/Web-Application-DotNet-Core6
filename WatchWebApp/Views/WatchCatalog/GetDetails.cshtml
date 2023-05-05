@@ -1,133 +1,337 @@
 ﻿@model WatchModel2
 @*@model ImageModelV2*@
 
-@using (Html.BeginForm("UpdateItem", "WatchCatalog", FormMethod.Post, new { enctype = "multipart/form-data" }))
+@if (Model != null)
 {
-    @Html.AntiForgeryToken()
     <hr class="mt-0 mb-4" />
+    @if (ViewBag.msgerror != null)
+    {
+        <div class="text-danger">
+            <h6>@ViewBag.msgerror</h6>
+        </div>
+        <hr />
+    }
     <div class="row">
         <div class="col-xl-4">
-            <!-- Profile picture card-->
-            <div class="card mb-4 mb-xl-0">
+            <!--Item picture card-->
+            <div class="card mb-4 mb-xl-0 ml-4">
                 <div class="card-header">Item Image</div>
                 <div class="card-body text-center">
-                    <!-- Profile picture image-->
-                    <img class="img-account-profile ro  unded-circle mb-2" src="@Model.Image" alt="">
+                    <!-- Item image-->
+                    @using (Html.BeginForm("UpdateImage", "WatchCatalog", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
 
-                    <!-- Profile picture help block-->
-                    <div class="small font-italic text-muted mb-4">JPG or PNG</div>
-                    <!-- Profile picture upload button-->
-                    @*@Html.EditorFor(m => m.Image, new { @class = "form-control" })*@
-                    <input type="file" class="form-control" />
+                        <div class="wrap-pic-w pos-relative">
+                            @Html.TextBoxFor(m => m.ItemNo, new { @Value = (Model.ItemNo), @class = "form-control", @type="hidden", @readonly="readonly"})
+                            @Html.TextBoxFor(m => m.Image, new { @Value = (Model.Image), @class = "form-control", @type="hidden", @readonly="readonly"})
+
+                            <img class="" src="@Model.Image" alt="IMG-PRODUCT"><br /><br />
+                            <div class="col-lg-6">
+                                @Html.ValidationMessageFor(m => m.File, "", new{@class = "text-danger", @style ="font-size:10px;"})
+                                @Html.EditorFor(m => m.File, new { @class = "form-control" })
+                            </div><br />
+                            <div class="col-lg-12">
+                                <input type="submit" value="Upload" class="form-control btn btn-primary" disabled />
+                            </div>
+                        </div>
+                    }
                 </div>
             </div>
         </div>
         <div class="col-xl-8">
             <div class="row">
-                <div class="col-md-8 col-sm-6">
-                    <input id="del" type="button" class="btn btn-primary" value="Edit" /> &nbsp;
-                  @*  <input type="button" class="btn btn-warning" onclick=confirmDelete() value="Delete" data-toggle="modal" data-target="#myModal" />*@
-                   @* <input type="button"  class="btn btn-warning" onclick=mydelete(@Model.ItemNo) value="Delete" />*@
-                    @*<input type="button" class="btn btn-warning" onclick="@Url.ActionLink("Delete","WatchCatalog", new {id = Model.ItemNo})" value="Delete">*@
-                    @*<input type="button" id="delete" class="btn btn-warning" value="Delete">*@
-                    @Html.ActionLink("Delete Items","DelItem","WatchCatalog", new{id = Model.ItemNo})
-                   @* <a href='@Html.ActionLink("DeleteItem","WatchCatalog", new{id = Model.ItemNo})' class="btn btn-danger">Delete</a>*@
+                <div class="col-lg-2">
+                    <input type="button" id="btnedit" class="form-control btn btn-primary" value="Edit" /> &nbsp;
+                </div>
+                <div class="col-lg-2">
+                    <input type="button" id="delete" class="form-control btn btn-danger" value="Delete" /> &nbsp;
                 </div>
             </div>
-            <br />
             <!-- Account details card-->
-            <div class="card mb-4">
+            <div class="card mr-4 mb-4">
                 <div class="card-header">Item Details</div>
                 <div class="card-body">
-                   <input type="hidden" id="updateID" value="@Model.ItemNo" />
-                    <!-- Form Group (username)-->
-                    <div class="mb-3">
-                        @Html.LabelFor(m => m.ItemNo, new { @class = "small mb-1"})
-                        @Html.TextBoxFor(m => m.ItemNo, new { @Value = (Model.ItemNo), @class = "form-control", id = "itemNo", @readonly="readonly"})
-                    </div>
-
-                    <div class="mb-3">
-                        @Html.LabelFor(m => m.ItemName, new { @class = "small mb-1"})
-                        @Html.TextBoxFor(m => m.ItemName, new { @Value = (Model.ItemName), @class = "form-control"})
-                    </div>
-                    <div class="mb-3">
-                        @Html.LabelFor(m => m.Price, new { @class = "small mb-1"})
-                        @Html.TextBoxFor(m => m.Price, new { @Value = (Model.Price), @class = "form-control"})
-                    </div>
-                    <div class="mb-3">
-                        @Html.LabelFor(m => m.ShortDescription, new { @class = "small mb-1"})
-                        @Html.TextBoxFor(m => m.ShortDescription, new { @Value = (Model.ShortDescription), @class = "form-control"})
-                    </div>
-                    <div class="mb-3">
-                        @Html.LabelFor(m => m.FullDescription, new { @class = "small mb-1"})
-                        @Html.TextAreaFor(m => m.FullDescription, new { @Value = (Model.FullDescription), @class = "form-control"})
-                    </div>
-                    <div class="mb-3">
-                        @Html.LabelFor(m => m.Caliber, new { @class = "small mb-1"})
-                        @Html.TextBoxFor(m => m.Caliber, new { @Value = (Model.Caliber), @class = "form-control"})
-                    </div>
-                    <div class="mb-3">
-                        @Html.LabelFor(m => m.Movement, new { @class = "small mb-1"})
-                        @Html.TextBoxFor(m => m.Movement, new { @Value = (Model.Movement), @class = "form-control"})
-                    </div>
-                    <div class="mb-3">
-                        @Html.LabelFor(m => m.Chronograph, new { @class = "small mb-1"})
-                        @Html.TextBoxFor(m => m.Chronograph, new { @Value = (Model.Chronograph), @class = "form-control"})
-                    </div>
-                    <div class="mb-3">
-                        @Html.LabelFor(m => m.Weight, new { @class = "small mb-1"})
-                        @Html.TextBoxFor(m => m.Weight, new { @Value = (Model.Weight), @class = "form-control"})
-                    </div>
-                    <div class="mb-3">
-                        @Html.LabelFor(m => m.Height, new { @class = "small mb-1"})
-                        @Html.TextBoxFor(m => m.Height, new { @Value = (Model.Height), @class = "form-control"})
-                    </div>
-                    <div class="mb-3">
-                        @Html.LabelFor(m => m.Diameter, new { @class = "small mb-1"})
-                        @Html.TextBoxFor(m => m.Diameter, new { @Value = (Model.Diameter), @class = "form-control"})
-                    </div>
-                    <div class="mb-3">
-                        @Html.LabelFor(m => m.Thickness, new { @class = "small mb-1"})
-                        @Html.TextBoxFor(m => m.Thickness, new { @Value = (Model.Thickness), @class = "form-control"})
-                    </div>
-                    <div class="mb-3">
-                        @Html.LabelFor(m => m.Jewel, new { @class = "small mb-1"})
-                        @Html.TextBoxFor(m => m.Jewel, new { @Value = (Model.Jewel), @class = "form-control"})
-                    </div>
-                    <div class="mb-3">
-                        @Html.LabelFor(m => m.CaseMaterial, new { @class = "small mb-1"})
-                        @Html.TextBoxFor(m => m.CaseMaterial, new { @Value = (Model.CaseMaterial), @class = "form-control"})
-                    </div>
-                    <div class="mb-3">
-                        @Html.LabelFor(m => m.StrapMaterial, new { @class = "small mb-1"})
-                        @Html.TextBoxFor(m => m.StrapMaterial, new { @Value = (Model.StrapMaterial), @class = "form-control"})
-                    </div>
-                    <!-- Save changes button-->
-                    <button class="btn btn-outline-success" type="submit">Save changes</button>
+                    <input type="hidden" id="updateID" value="@Model.ItemNo" />
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.ItemNo, new { @class = "small mb-1"})
+                                @Html.TextBoxFor(m => m.ItemNo, new { @Value = (Model.ItemNo), @class = "form-control", @readonly="readonly"})
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.ItemName, new { @class = "small mb-1"})
+                                @Html.TextBoxFor(m => m.ItemName, new { @Value = (Model.ItemName), @class = "form-control", @readonly="readonly"})
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Price, new { @class = "small mb-1"})
+                                @Html.TextBoxFor(m => m.Price, new { @Value = (Model.Price), @class = "form-control", @readonly="readonly"})
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.ShortDescription, new { @class = "small mb-1"})
+                                @Html.TextAreaFor(m => m.ShortDescription, new { @Value = (Model.ShortDescription), @class = "form-control", @readonly="readonly"})
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.FullDescription, new { @class = "small mb-1"})
+                                @Html.TextAreaFor(m => m.FullDescription, new { @Value = (Model.FullDescription), @class = "form-control", @readonly="readonly"})
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Caliber, new { @class = "small mb-1"})
+                                @Html.TextBoxFor(m => m.Caliber, new { @Value = (Model.Caliber), @class = "form-control", @readonly="readonly"})
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Movement, new { @class = "small mb-1"})
+                                @Html.TextBoxFor(m => m.Movement, new { @Value = (Model.Movement), @class = "form-control", @readonly="readonly"})
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Chronograph, new { @class = "small mb-1"})
+                                @Html.TextBoxFor(m => m.Chronograph, new { @Value = (Model.Chronograph), @class = "form-control", @readonly="readonly"})
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Weight, new { @class = "small mb-1"})
+                                @Html.TextBoxFor(m => m.Weight, new { @Value = (Model.Weight), @class = "form-control", @readonly="readonly"})
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Height, new { @class = "small mb-1"})
+                                @Html.TextBoxFor(m => m.Height, new { @Value = (Model.Height), @class = "form-control", @readonly="readonly"})
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Diameter, new { @class = "small mb-1"})
+                                @Html.TextBoxFor(m => m.Diameter, new { @Value = (Model.Diameter), @class = "form-control", @readonly="readonly"})
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Thickness, new { @class = "small mb-1"})
+                                @Html.TextBoxFor(m => m.Thickness, new { @Value = (Model.Thickness), @class = "form-control", @readonly="readonly"})
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.Jewel, new { @class = "small mb-1"})
+                                @Html.TextBoxFor(m => m.Jewel, new { @Value = (Model.Jewel), @class = "form-control", @readonly="readonly"})
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.CaseMaterial, new { @class = "small mb-1"})
+                                @Html.TextBoxFor(m => m.CaseMaterial, new { @Value = (Model.CaseMaterial), @class = "form-control", @readonly="readonly"})
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                @Html.LabelFor(m => m.StrapMaterial, new { @class = "small mb-1"})
+                                @Html.TextBoxFor(m => m.StrapMaterial, new { @Value = (Model.StrapMaterial), @class = "form-control", @readonly="readonly"})
+                            </div>
+                        </div>
+                    </div><hr />
+                    <a class="fa-pull-left" asp-action="Index" asp-controller="Home"><u>Back to List</u></a>
                 </div>
             </div>
         </div>
     </div>
 }
 
+<!-- Modal1 -->
+<div class="wrap-modal1 js-modal1 p-t-60 p-b-20">
+    <div class="overlay-modal1 js-hide-modal1"></div>
+
+    <div class="container">
+        @if (Model != null)
+        {
+            <div class="bg0 p-t-20 p-b-20 p-lr-15-lg how-pos3-parent">
+                <button class="how-pos3 hov3 trans-04 js-hide-modal1">
+                    <img src="https://avablobstorage2.blob.core.windows.net/msavaaccenture/icon-close.png" alt="CLOSE">
+                </button>
+                <div class="row">
+                    <div class="col-md-6 col-lg-4 p-b-30">
+                        <div class="p-l-25 p-r-30 p-lr-0-lg">
+                            <div class="item-slick3" data-thumb="Model.Image">
+                                <div class="wrap-pic-w pos-relative">
+                                    <img src="@Model.Image" alt="IMG-PRODUCT">
+                                    <br />
+                                </div>
+                            </div>
+                            @*<div class="wrap-slick3 flex-sb flex-w">
+                        <div class="slick3 gallery-lb">
+
+                        </div>
+                        </div>*@
+
+                        </div>
+
+                    </div>
+                    <div class="col-md-6 col-lg-8 p-b-2">
+                        <div class="card mx-4 mr-4">
+                            <div class="card-header">Update details</div>
+                            <div class="card-body">
+                                @using (Html.BeginForm("", "", FormMethod.Post, new { enctype = "multipart/form-data", id= "formupdate" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                @Html.TextBoxFor(m => m.ItemNo, new { @Value = (Model.ItemNo), @class = "form-control", @Id = "itemno", @hidden="true"})
+                                              
+                                                @Html.LabelFor(m => m.ItemName, new { @class = "small mb-1"})
+                                                @Html.TextBoxFor(m => m.ItemName, new { @Value = (Model.ItemName),@Id = "itemname", @class = "form-control"})
+                                                @Html.ValidationMessageFor(m => m.ItemName, "", new{@class = "text-danger field-validation-valid", @style ="font-size:12px;"})
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                               
+                                                @Html.LabelFor(m => m.Price, new { @class = "small mb-1"})
+                                                @Html.TextBoxFor(m => m.Price, new { @Value = (Model.Price), @class = "form-control pr", @Id = "price", @onkeypress="return isNumberKey(event)", @onkeyup="limitDec(this.id)"})
+                                                @Html.ValidationMessageFor(m => m.Price, "", new{@class = "text-danger", @style ="font-size:12px;"})
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                
+                                                @Html.LabelFor(m => m.ShortDescription, new { @class = "small mb-1"})
+                                                @Html.TextAreaFor(m => m.ShortDescription, new { @Value = (Model.ShortDescription), @Id = "shortdesc", @class = "form-control"})
+                                                @Html.ValidationMessageFor(m => m.Chronograph, "", new{@class = "text-danger", @style ="font-size:12px;"})
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="form-group">
+                                                
+                                                @Html.LabelFor(m => m.FullDescription, new { @class = "small mb-1"})
+                                                @Html.TextAreaFor(m => m.FullDescription, new { @Value = (Model.FullDescription), @Id = "fulldesc", @class = "form-control"})
+                                                @Html.ValidationMessageFor(m => m.FullDescription, "", new{@class = "text-danger", @style ="font-size:12px;"})
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                
+                                                @Html.LabelFor(m => m.Caliber, new { @class = "small mb-1"})
+                                                @Html.TextBoxFor(m => m.Caliber, new { @Value = (Model.Caliber) ,@Id = "caliber", @class = "form-control"})
+                                                @Html.ValidationMessageFor(m => m.Caliber, "", new{@class = "text-danger", @style ="font-size:12px;"})
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                
+                                                @Html.LabelFor(m => m.Movement, new { @class = "small mb-1"})
+                                                @Html.TextBoxFor(m => m.Movement, new { @Value = (Model.Movement), @Id= "movement", @class = "form-control"})
+                                                @Html.ValidationMessageFor(m => m.Movement, "", new{@class = "text-danger", @style ="font-size:12px;"})
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                               
+                                                @Html.LabelFor(m => m.Chronograph, new { @class = "small mb-1"})
+                                                @Html.TextBoxFor(m => m.Chronograph, new { @Value = (Model.Chronograph),@Id= "chronograph", @class = "form-control"})
+                                                @Html.ValidationMessageFor(m => m.Chronograph, "", new{@class = "text-danger", @style ="font-size:12px;"})
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                
+                                                @Html.LabelFor(m => m.Weight, new { @class = "small mb-1"})
+                                                @Html.TextBoxFor(m => m.Weight, new { @Value = (Model.Weight), @class = "form-control we", @Id = "weight", @onkeypress="return isNumberKey(event)", @onkeyup="limitDec(this.id)"})
+                                                @Html.ValidationMessageFor(m => m.Weight, "", new{@class = "text-danger", @style ="font-size:12px;"})
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                
+                                                @Html.LabelFor(m => m.Height, new { @class = "small mb-1"})
+                                                @Html.TextBoxFor(m => m.Height, new { @Value = (Model.Height), @class = "form-control he", @Id="height", @onkeypress="return isNumberKey(event)", @onkeyup="limitDec(this.id)"})
+                                                @Html.ValidationMessageFor(m => m.Height, "", new{@class = "text-danger", @style ="font-size:12px;"})
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                
+                                                @Html.LabelFor(m => m.Diameter, new { @class = "small mb-1"})
+                                                @Html.TextBoxFor(m => m.Diameter, new { @Value = (Model.Diameter), @class = "form-control", @Id="diameter"})
+                                                @Html.ValidationMessageFor(m => m.Diameter, "", new{@class = "text-danger", @style ="font-size:12px;"})
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                
+                                                @Html.LabelFor(m => m.Thickness, new { @class = "small mb-1"})
+                                                @Html.TextBoxFor(m => m.Thickness, new { @Value = (Model.Thickness), @class = "form-control th", @Id = "thickness", @onkeypress="return isNumberKey(event)", @onkeyup="limitDec(this.id)"})
+                                                @Html.ValidationMessageFor(m => m.Thickness, "", new{@class = "text-danger", @style ="font-size:12px;"})
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                
+                                                @Html.LabelFor(m => m.Jewel, new { @class = "small mb-1"})
+                                                @Html.TextBoxFor(m => m.Jewel, new { @Value = (Model.Jewel), @class = "form-control", @Id = "jewel", @type="number"})
+                                                @Html.ValidationMessageFor(m => m.Jewel, "", new{@class = "text-danger", @style ="font-size:12px;"})
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                               
+                                                @Html.LabelFor(m => m.CaseMaterial, new { @class = "small mb-1"})
+                                                @Html.TextBoxFor(m => m.CaseMaterial, new { @Value = (Model.CaseMaterial), @Id = "casemat", @class = "form-control"})
+                                                @Html.ValidationMessageFor(m => m.CaseMaterial, "", new{@class = "text-danger", @style ="font-size:12px;"})
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-4">
+                                            <div class="form-group">
+                                                @Html.LabelFor(m => m.StrapMaterial, new { @class = "small mb-1"})
+                                                @Html.TextBoxFor(m => m.StrapMaterial, new { @Value = (Model.StrapMaterial), @Id = "strapmat", @class = "form-control"})
+                                                @Html.ValidationMessageFor(m => m.StrapMaterial, "", new{@class = "text-danger", @style ="font-size:12px;"})
+                                            </div>
+                                        </div><br />
+                                    </div>
+                                    <div class="mx-4">
+                                        <button class="btn btn-outline-success" id="btnupdate" type="submit">Save changes</button>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
-        <div class="modal-content">
+        <div class="modal-content" style="margin-top:100px;">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Confirm</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                ...
+                Are you sure you want to delete?
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick=mydelete()>Confirm</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                <button id="deleteItem" type="button" class="btn btn-primary">Yes</button>
             </div>
         </div>
     </div>
 </div>
-

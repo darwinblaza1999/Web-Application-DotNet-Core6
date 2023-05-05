@@ -1,112 +1,202 @@
 ﻿@model IList<WatchModel2>
-@*@using MultipleModelInOneView;
-@model dynamic*@
+@if (ViewBag.ErMessage != null)
+{
+	<div class="text-danger">
+		<h6>@ViewBag.ErMessage</h6>
+	</div>
+	<hr />
+}
+<!-- Slider -->
+<section class="section-slide">
+	<div class="wrap-slick1 rs1-slick1">
+		<div class="slick1">
+			<div class="item-slick1" style="background-image: url(https://avablobstorage2.blob.core.windows.net/msavaaccenture/slide101-08.jpg);">
+				<div class="container h-full">
+					<div class="flex-col-l-m h-full p-t-100 p-b-30">
+						<div class="layer-slick1 animated visible-false" data-appear="fadeInDown" data-delay="0">
+							<span class="ltext-202 cl2 respon2">
+								Watch Collection 2018
+							</span>
+						</div>
 
-<!-- Header-->
-<header class="bg-dark py-1">
-    <div class="container px-4 px-lg-1 my-1">
-        <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-                <div class="carousel-item active" data-bs-interval="10000">
-                    <img src="https://msavaaccenturestorage.blob.core.windows.net/watchcontainer/john-torcasio-TJrkkhdB39E-unsplash (1).jpg" class="d-block w-100" style="height:300px" alt="...">
-                </div>
-                <div class="carousel-item" data-bs-interval="2000">
-                    <img src="https://msavaaccenturestorage.blob.core.windows.net/watchcontainer/john-torcasio-OvcuGfIwHuc-unsplash.jpg" class="d-block w-100" style="height:300px" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="https://msavaaccenturestorage.blob.core.windows.net/watchcontainer/heidi-fin-M2Kxb80gqcc-unsplash.jpg" class="d-block w-100" style="height:300px" alt="...">
-                </div>
-            </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Previous</span>
-            </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Next</span>
-            </button>
-        </div>
-        @*<div class="text-center text-white">
-            <h1 class="display-4 fw-bolder">Shop in style</h1>
-            <p class="lead fw-normal text-white-50 mb-0">With this shop hompeage template</p>
-        </div>*@
-    </div>
-</header>
-<!-- Section-->
-<section class="py-5">
-    <div class="container px-4 px-lg-5 mt-5">
-        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-            @if(Model != null)
-            {
-                @foreach (var item in Model)
-                {
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="@item.Image" alt="..." />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">@item.ItemName</h5>
-                                    <!-- Product price-->
-                                    @item.Price
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                @Html.ActionLink("View Details","GetDetails","WatchCatalog", new{id = @item.ItemNo})
-                                @*@Html.ActionLink("UPDATE","GetById", new{id = item.ItemNo}) *@
-                                @*<div class="text-center"><a class="btn btn-outline-dark mt-auto" asp-controller="WatchCatalog" asp-action="GetDetails">View Details</a></div>*@
-                                @*<div class="text-center"><a class="btn btn-outline-dark mt-auto">View Details</a></div>*@
+						<div class="layer-slick1 animated visible-false" data-appear="fadeInUp" data-delay="800">
+							<h2 class="ltext-104 cl2 p-t-19 p-b-43 respon1">
+								@*New arrivals*@
+							</h2>
+						</div>
 
-                            </div>
-                        </div>
-                    </div>
-                }
+						<div class="layer-slick1 animated visible-false" data-appear="zoomIn" data-delay="1600">
+							<a class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04" asp-action="ViewShop" asp-controller="WatchCatalog">
+								Shop Now
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
 
-            }
-            
-            @*<div class="col mb-5">
-                <div class="card h-100">
-                    <!-- Sale badge-->
-                    <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
-                    <!-- Product image-->
-                    <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />
-                    <!-- Product details-->
-                    <div class="card-body p-4">
-                        <div class="text-center">
-                            <!-- Product name-->
-                            <h5 class="fw-bolder">Special Item</h5>
-                            <!-- Product reviews-->
-                            <div class="d-flex justify-content-center small text-warning mb-2">
-                                <div class="bi-star-fill"></div>
-                                <div class="bi-star-fill"></div>
-                                <div class="bi-star-fill"></div>
-                                <div class="bi-star-fill"></div>
-                                <div class="bi-star-fill"></div>
-                            </div>
-                            <!-- Product price-->
-                            <span class="text-muted text-decoration-line-through">$20.00</span>
-                            $18.00
-                        </div>
-                    </div>
-                    <!-- Product actions-->
-                    <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                        <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>
-                    </div>
-                </div>
-            </div>*@
-        </div>
-    </div>
+			<div class="item-slick1" style="background-image: url(https://avablobstorage2.blob.core.windows.net/msavaaccenture/slide101-07.jpg);">
+				<div class="container h-full">
+					<div class="flex-col-l-m h-full p-t-100 p-b-30">
+						<div class="layer-slick1 animated visible-false" data-appear="rollIn" data-delay="0">
+							<span class="ltext-202 cl2 respon2">
+								Watch Collection 2019
+							</span>
+						</div>
+
+						<div class="layer-slick1 animated visible-false" data-appear="lightSpeedIn" data-delay="800">
+							<h2 class="ltext-104 cl2 p-t-19 p-b-43 respon1">
+								@*New Arrival*@
+							</h2>
+						</div>
+
+						<div class="layer-slick1 animated visible-false" data-appear="slideInUp" data-delay="1600">
+							<a  asp-action="ViewShop" asp-controller="WatchCatalog" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+								Shop Now
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="item-slick1" style="background-image: url(https://avablobstorage2.blob.core.windows.net/msavaaccenture/slide101-09.jpg);">
+				<div class="container h-full">
+					<div class="flex-col-l-m h-full p-t-100 p-b-30">
+						<div class="layer-slick1 animated visible-false" data-appear="rotateInDownLeft" data-delay="0">
+							<span class="ltext-202 cl2 respon2">
+								Watch Collection 2020
+							</span>
+						</div>
+
+						<div class="layer-slick1 animated visible-false" data-appear="rotateInUpRight" data-delay="800">
+							<h2 class="ltext-104 cl2 p-t-19 p-b-43 respon1">
+							@*	NEW SEASON*@
+							</h2>
+						</div>
+
+						<div class="layer-slick1 animated visible-false" data-appear="rotateIn" data-delay="1600">
+							<a asp-action="ViewShop" asp-controller="WatchCatalog" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+								Shop Now
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="item-slick1" style="background-image: url(https://avablobstorage2.blob.core.windows.net/msavaaccenture/slide101-10.jpg);">
+				<div class="container h-full">
+					<div class="flex-col-l-m h-full p-t-100 p-b-30">
+						<div class="layer-slick1 animated visible-false" data-appear="rotateInDownLeft" data-delay="0">
+							<span class="ltext-202 cl2 respon2">
+								Watch Collection 2021
+							</span>
+						</div>
+
+						<div class="layer-slick1 animated visible-false" data-appear="rotateInUpRight" data-delay="800">
+							<h2 class="ltext-104 cl2 p-t-19 p-b-43 respon1">
+								@*	NEW SEASON*@
+							</h2>
+						</div>
+
+						<div class="layer-slick1 animated visible-false" data-appear="rotateIn" data-delay="1600">
+							<a asp-action="ViewShop" asp-controller="WatchCatalog" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">
+								Shop Now
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
-@*@{
-    Html.RenderPartial("PartialItemView");
-}*@
-@*@{
-    Html.RenderPartial("PartialView");
-}*@
-<!-- Footer-->
-@*<footer class="py-5 bg-dark">
-    <div class="container"><p class="m-0 text-center text-white">Copyright &copy; Your Website 2023</p></div>
-</footer>*@
+@if(Model != null)
+{
+	@if (Model.Count() > 0)
+	{
+		<!-- Product -->
+		<section class="sec-product bg0 p-t-100 p-b-50">
+			<div class="container">
+				<div class="p-b-32">
+					<h3 class="ltext-105 cl5 txt-center respon1">
+						Overview
+					</h3>
+				</div>
+
+				<!-- Tab01 -->
+				<div class="tab01">
+					<!-- Nav tabs -->
+					<ul class="nav nav-tabs" role="tablist">
+						<li class="nav-item p-b-10">
+							<a class="nav-link" data-toggle="tab" href="#sale" role="tab">Watch Feature</a>
+						</li>
+					</ul>
+
+					<!-- Tab panes -->
+					<div class="tab-content p-t-50">
+						<!-- - -->
+						@*<div class="tab-pane fade show active" id="sale" role="tabpanel">
+				<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04">Add Item</button>
+				<br />*@
+						@if (Model.Count() > 0)
+						{
+							<!-- Slide2 -->
+							<div class="wrap-slick2">
+								<div class="slick2">
+									@foreach (var item in Model)
+									{
+										<div class="item-slick2 p-l-15 p-r-15 p-t-15 p-b-15">
+											<!-- Block2 -->
+											<input type="hidden" id="itemId" value="@item.ItemNo">
+											<div class="block2">
+												<div class="block2-pic hov-img0">
+													<img src="@item.Image" alt="IMG-PRODUCT">
+
+													@*<a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04 js-show-modal1">*@
+													@*<a class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04" asp-action="GetDetails" asp-controller="WatchCatalog" asp-route-id="@item.ItemNo">*@
+													<a class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04" asp-action="GetDetails" asp-controller="WatchCatalog" asp-route-id="@item.ItemNo">
+														View details
+													</a>
+												</div>
+
+												<div class="block2-txt flex-w flex-t p-t-14">
+													<div class="block2-txt-child1 flex-col-l" style="text-align:center;">
+
+														<div class="stext-104 cl4 trans-04 js-name-b2 p-b-6">
+															@item.ItemName
+														</div>
+														<span class="stext-105 cl3">
+															<b>@item.Price.ToString("C")</b>
+														</span>
+														<div class="justify-content-center" style="margin-top:0.5rem;">
+															<p class="stext-105 cl3">
+																@item.ShortDescription
+															</p>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									}
+								</div>
+							</div>
+						}
+
+					</div>
+				</div>
+			</div>
+		</section>
+		<br />
+		<br />
+	}
+	else
+	{
+		<br />
+		<center>
+			<h5>
+				No product available
+			</h5>
+		</center>
+
+		<br />
+	}
+}
+

@@ -1,140 +1,148 @@
 ﻿@model WatchWebApp.Models.ImageModel
-@{
-    ViewData["Title"] = "Add Item";
-}
-<h1>@ViewData["Title"]</h1>
 
-@*@if (TempData["ErrorText"] != null)
+
+@*<hr />*@
+@*<div class="col-md-8 offset-2">
+
+</div>*@
+
+@if (ViewBag.ResMessage != null)
 {
-    <h1 class="validmsg">@TempData["ErrorMessage"].ToString()</h1>
-}*@
-
-
-@*@using (Html.BeginForm("Add", "Watch", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data", id = "formid" }))*@
-@using (Html.BeginForm("AddItem", "WatchCatalog", FormMethod.Post, new {enctype ="multipart/form-data"}))
-{
-    @Html.AntiForgeryToken()
+    <div class="text-danger">
+        <h6>@ViewBag.ResMessage</h6>
+    </div>
     <hr />
+}
+<div class="row">
+    <div class="col-md-10 mx-auto" style="max-width:60.333333%;">
+        <div class="row">
+            <div class="card">
+                <div class="card-header">Add New Item</div>
+                <div class="card-body">
 
-    <div class="row">
-        <div class="col-md-8 offset-2">
-            @Html.ValidationSummary(false,"", new { @class = "text-danger" })
-            <div class="form-group">
-                @*  @Html.ValidationMessageFor(m => m.ImgUrl, new{@class = "text-danger"})*@
-                @*@Html.ValidationSummary(false,"Image field is required", new {@class = "text-danger"})*@
-                @Html.LabelFor(m => m.ItemName, new { @class = "col-md-4 control-label" })
-                <div class="col-md-10">
-                    @Html.EditorFor(m => m.File, new { @class = "form-control" })
-                    @*<input type="file" name="ImageFile" required />*@
-                    @*@Html.TextBoxFor("file", new { @class = "form-control" })*@
-                </div>
-            </div>
-            <br />
-            <div class="form-group">
-                @Html.ValidationMessageFor(m => m.ItemName, "", new{@class = "text-danger"})
-                @Html.LabelFor(m => m.ItemName, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.ItemName, new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.ValidationMessageFor(m => m.ShortDescription)
-                @Html.LabelFor(m => m.ShortDescription, new { @class = "col-md-4 control-label" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.ShortDescription, new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.ValidationMessageFor(m => m.FullDescription)
-                @Html.LabelFor(m => m.FullDescription, new { @class = "col-md-4 control-label" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.FullDescription, new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.ValidationMessageFor(m => m.Price)
-                @Html.LabelFor(m => m.Price, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.Price, new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.ValidationMessageFor(m => m.Caliber)
-                @Html.LabelFor(m => m.Caliber, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.Caliber, new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.ValidationMessageFor(m => m.Movement)
-                @Html.LabelFor(m => m.Movement, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.Movement, new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.ValidationMessageFor(m => m.Chronograph)
-                @Html.LabelFor(m => m.Chronograph, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.Chronograph, new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.ValidationMessageFor(m => m.Weight)
-                @Html.LabelFor(m => m.Weight, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.Weight, new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.ValidationMessageFor(m => m.Height)
-                @Html.LabelFor(m => m.Height, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.Height, new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.ValidationMessageFor(m => m.Diameter)
-                @Html.LabelFor(m => m.Diameter, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.Diameter, new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.ValidationMessageFor(m => m.Thickness)
-                @Html.LabelFor(m => m.Thickness, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.Thickness, new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.ValidationMessageFor(m => m.Jewel)
-                @Html.LabelFor(m => m.Jewel, new { @class = "col-md-2 control-label" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.Jewel, new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.ValidationMessageFor(m => m.CaseMaterial)
-                @Html.LabelFor(m => m.CaseMaterial, new { @class = "col-md-4 control-label" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.CaseMaterial, new { @class = "form-control" })
-                </div>
-            </div>
-            <div class="form-group">
-                @Html.ValidationMessageFor(m => m.StrapMaterial)
-                @Html.LabelFor(m => m.StrapMaterial, new { @class = "col-md-4 control-label" })
-                <div class="col-md-10">
-                    @Html.TextBoxFor(m => m.StrapMaterial, new { @class = "form-control" })
-                </div>
-            </div>
-            <br />
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" class="btn btn-success" value="Save" />
+                    @using (Html.BeginForm("AddItem", "WatchCatalog", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="mb-3 mx-2">
+                            @Html.LabelFor(m => m.File, new {@class="small mb-1" })
+                            @Html.EditorFor(m => m.File, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.File, "", new{@class = "text-danger", @style ="font-size:12px;"})
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ItemName, new { @class = "small mb-1" })
+                                    @Html.TextBoxFor(m => m.ItemName, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.ItemName, "", new{@class = "text-danger field-validation-valid", @style ="font-size:10px;"})
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Price, new { @class = "small mb-1" })
+                                    @Html.TextBoxFor(m => m.Price, new { @class = "form-control pr", @onkeypress="return isNumberKey(event)", @onkeyup="limitDec(this.id)", @placeholder = "0.00"})
+                                    @Html.ValidationMessageFor(m => m.Price, "", new{@class = "text-danger field-validation-valid", @style ="font-size:10px;"})
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.ShortDescription, new { @class = "small mb-1" })
+                                    @Html.TextAreaFor(m => m.ShortDescription, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.ShortDescription, "", new{@class = "text-danger field-validation-valid", @style ="font-size:10px;"})
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.FullDescription, new { @class = "small mb-1" })
+                                    @Html.TextAreaFor(m => m.FullDescription, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.FullDescription, "", new{@class = "text-danger field-validation-valid", @style ="font-size:10px;"})
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Caliber, new { @class = "small mb-1" })
+                                    @Html.TextBoxFor(m => m.Caliber, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Caliber, "", new{@class = "text-danger", @style ="font-size:10px;"})
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Movement, new { @class = "small mb-1" })
+                                    @Html.TextBoxFor(m => m.Movement, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Movement, "", new{@class = "text-danger", @style ="font-size:10px;"})
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Chronograph, new { @class = "small mb-1" })
+                                    @Html.TextBoxFor(m => m.Chronograph, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Chronograph, "", new{@class = "text-danger", @style ="font-size:10px;"})
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Weight, new { @class = "small mb-1" })
+                                    @Html.TextBoxFor(m => m.Weight, new { @class = "form-control we", @onkeypress="return isNumberKey(event)", @onkeyup="limitDec(this.id)", @placeholder = "0.00"})
+                                    @Html.ValidationMessageFor(m => m.Weight, "", new{@class = "text-danger", @style ="font-size:10px;"})
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Height, new { @class = "small mb-1" })
+                                    @Html.TextBoxFor(m => m.Height, new { @class = "form-control he", @onkeypress="return isNumberKey(event)", @onkeyup="limitDec(this.id)", @placeholder = "0.00"})
+                                    @Html.ValidationMessageFor(m => m.Height, "", new{@class = "text-danger", @style ="font-size:10px;"})
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Diameter, new { @class = "small mb-1" })
+                                    @Html.TextBoxFor(m => m.Diameter, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Diameter, "", new{@class = "text-danger", @style ="font-size:10px;"})
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Thickness, new { @class = "small mb-1" })
+                                    @Html.TextBoxFor(m => m.Thickness, new { @class = "form-control th", @onkeypress="return isNumberKey(event)", @onkeyup="limitDec(this.id)", @placeholder = "0.00" })
+                                    @Html.ValidationMessageFor(m => m.Thickness, "", new{@class = "text-danger", @style ="font-size:10px;"})
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.Jewel, new { @class = "small mb-1" })
+                                    @Html.TextBoxFor(m => m.Jewel, new { @class = "form-control", @type="number", @placeholder = "0"})
+                                    @Html.ValidationMessageFor(m => m.Jewel, "", new{@class = "text-danger", @style ="font-size:10px;"})
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.CaseMaterial, new { @class = "small mb-1" })
+                                    @Html.TextBoxFor(m => m.CaseMaterial, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.CaseMaterial, "", new{@class = "text-danger", @style ="font-size:10px;"})
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    @Html.LabelFor(m => m.StrapMaterial, new { @class = "small mb-1" })
+                                    @Html.TextBoxFor(m => m.StrapMaterial, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.StrapMaterial, "", new{@class = "text-danger", @style ="font-size:10px;"})
+                                </div>
+                            </div>
+                        </div>
+                        <hr />
 
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <input type="submit" class="btn btn-success" value="Submit" /> &nbsp;
+                                <input type="button" id="btncancel" class="btn btn-danger" asp-action="Index" asp-controller="Home" value="Cancel" />
+                            </div><br/>
+                         @*   <div class="col-lg-4">
+                                <a asp-action="Index" asp-controller="Home"><u>Back to List</u></a>
+                            </div>*@
+                        </div>
+                    }
                 </div>
             </div>
         </div>
     </div>
-}
+</div>
+<br />
