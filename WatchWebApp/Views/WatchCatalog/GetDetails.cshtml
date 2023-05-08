@@ -1,5 +1,4 @@
 ﻿@model WatchModel2
-@*@model ImageModelV2*@
 
 @if (Model != null)
 {
@@ -24,7 +23,7 @@
 
                         <div class="wrap-pic-w pos-relative">
                             @Html.TextBoxFor(m => m.ItemNo, new { @Value = (Model.ItemNo), @class = "form-control", @type="hidden", @readonly="readonly"})
-                            @Html.TextBoxFor(m => m.Image, new { @Value = (Model.Image), @class = "form-control", @type="hidden", @readonly="readonly"})
+                            @Html.TextBoxFor(m => m.Image, new { @Value = (@Model.Image), @class = "form-control", @type="hidden", @readonly="readonly"})
 
                             <img class="" src="@Model.Image" alt="IMG-PRODUCT"><br /><br />
                             <div class="col-lg-6">
@@ -172,14 +171,7 @@
                                     <br />
                                 </div>
                             </div>
-                            @*<div class="wrap-slick3 flex-sb flex-w">
-                        <div class="slick3 gallery-lb">
-
                         </div>
-                        </div>*@
-
-                        </div>
-
                     </div>
                     <div class="col-md-6 col-lg-8 p-b-2">
                         <div class="card mx-4 mr-4">
@@ -202,7 +194,7 @@
                                             <div class="form-group">
                                                
                                                 @Html.LabelFor(m => m.Price, new { @class = "small mb-1"})
-                                                @Html.TextBoxFor(m => m.Price, new { @Value = (Model.Price), @class = "form-control pr", @Id = "price", @onkeypress="return isNumberKey(event)", @onkeyup="limitDec(this.id)"})
+                                                @Html.TextBoxFor(m => m.Price, new { @Value = (Model.Price), @class = "form-control pr", @Id = "price", @onkeypress="return isNumberKey(event)", @onkeyup="limitDec(this.id)", @autocomplete = "off"})
                                                 @Html.ValidationMessageFor(m => m.Price, "", new{@class = "text-danger", @style ="font-size:12px;"})
                                             </div>
                                         </div>
@@ -211,7 +203,7 @@
                                                 
                                                 @Html.LabelFor(m => m.ShortDescription, new { @class = "small mb-1"})
                                                 @Html.TextAreaFor(m => m.ShortDescription, new { @Value = (Model.ShortDescription), @Id = "shortdesc", @class = "form-control"})
-                                                @Html.ValidationMessageFor(m => m.Chronograph, "", new{@class = "text-danger", @style ="font-size:12px;"})
+                                                @Html.ValidationMessageFor(m => m.ShortDescription, "", new{@class = "text-danger", @style ="font-size:12px;"})
                                             </div>
                                         </div>
                                         <div class="col-lg-12">
@@ -266,7 +258,7 @@
                                             <div class="form-group">
                                                 
                                                 @Html.LabelFor(m => m.Diameter, new { @class = "small mb-1"})
-                                                @Html.TextBoxFor(m => m.Diameter, new { @Value = (Model.Diameter), @class = "form-control", @Id="diameter", @onkeypress="return isNumberKey(event)", @onkeyup="limitDec(this.id)"})
+                                                @Html.TextBoxFor(m => m.Diameter, new { @Value = (Model.Diameter), @class = "form-control di", @Id="diameter", @onkeypress="return isNumberKey(event)", @onkeyup="limitDec(this.id)"})
                                                 @Html.ValidationMessageFor(m => m.Diameter, "", new{@class = "text-danger", @style ="font-size:12px;"})
                                             </div>
                                         </div>
@@ -315,7 +307,7 @@
     </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal 2-->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content" style="margin-top:100px;">

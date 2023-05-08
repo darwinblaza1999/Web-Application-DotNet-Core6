@@ -12,11 +12,13 @@ namespace WatchWebApp.Models
         [Display(Name = "Image")]
         public IFormFile? File { get; set; }
     }
+
     public class WatchModel : MainModel
     {
         [Display(Name = "Image")]
         public string? Image { get; set; }
     }
+
     public class ImageModelV2:MainModel
     {
         [Display(Name = "Image")]
@@ -30,6 +32,7 @@ namespace WatchWebApp.Models
         [Display(Name = "Upload image")]
         public string? Image { get; set; }
     }
+
     public class MainModel
     {
         [Required]
@@ -102,6 +105,7 @@ namespace WatchWebApp.Models
         [DataType(DataType.Text)]
         public string? StrapMaterial { get; set; }
     }
+
     public class WatchModel2 : WatchModel
     {
         [Required]
@@ -111,14 +115,17 @@ namespace WatchWebApp.Models
         [Display(Name = "Image")]
         public IFormFile? File { get; set; }
     }
+
     public class ResData
     {
         public WatchModel2[] data { get; set; }
     }
+
     public class BlobUpload
     {
         public IFormFile? file { get; set;}
     }
+
     public class WatchImage
     {
         public string? Image { get; set;}

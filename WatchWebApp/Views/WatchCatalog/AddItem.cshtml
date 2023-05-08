@@ -1,11 +1,5 @@
 ﻿@model WatchWebApp.Models.ImageModel
 
-
-@*<hr />*@
-@*<div class="col-md-8 offset-2">
-
-</div>*@
-
 @if (ViewBag.ResMessage != null)
 {
     <div class="text-danger">
@@ -39,7 +33,7 @@
                             <div class="col-lg-6">
                                 <div class="form-group">
                                     @Html.LabelFor(m => m.Price, new { @class = "small mb-1" })
-                                    @Html.TextBoxFor(m => m.Price, new { @class = "form-control pr", @onkeypress="return isNumberKey(event)", @onkeyup="limitDec(this.id)", @placeholder = "0.00"})
+                                    @Html.TextBoxFor(m => m.Price, new { @class = "form-control pr",@Id = "price", @onkeypress="return isNumberKey(event)", @onkeyup="limitDec(this.id)", @placeholder = "0.00", @autocomplete="off"})
                                     @Html.ValidationMessageFor(m => m.Price, "", new{@class = "text-danger field-validation-valid", @style ="font-size:10px;"})
                                 </div>
                             </div>
@@ -135,9 +129,6 @@
                                 <input type="submit" class="btn btn-success" value="Submit" /> &nbsp;
                                 <input type="button" id="btncancel" class="btn btn-danger" asp-action="Index" asp-controller="Home" value="Cancel" />
                             </div><br/>
-                         @*   <div class="col-lg-4">
-                                <a asp-action="Index" asp-controller="Home"><u>Back to List</u></a>
-                            </div>*@
                         </div>
                     }
                 </div>

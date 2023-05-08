@@ -207,8 +207,6 @@ namespace WatchWebApp.Controllers
         {
             Response<object> response = new Response<object>();
 
-            //ViewBag.msgerror = null;
-
             #region Get Token Bearer
         var token = await _adapter.token.GetToken();
             if (token.Data != string.Empty && token.isSuccess)
@@ -256,7 +254,6 @@ namespace WatchWebApp.Controllers
             }
             else
             {
-                //ViewBag.msgerror = response.Message;
                 return View("GetDetails");
             }
         }
