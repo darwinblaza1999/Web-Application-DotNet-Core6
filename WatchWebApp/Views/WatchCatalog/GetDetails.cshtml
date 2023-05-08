@@ -266,7 +266,7 @@
                                             <div class="form-group">
                                                 
                                                 @Html.LabelFor(m => m.Diameter, new { @class = "small mb-1"})
-                                                @Html.TextBoxFor(m => m.Diameter, new { @Value = (Model.Diameter), @class = "form-control", @Id="diameter"})
+                                                @Html.TextBoxFor(m => m.Diameter, new { @Value = (Model.Diameter), @class = "form-control", @Id="diameter", @onkeypress="return isNumberKey(event)", @onkeyup="limitDec(this.id)"})
                                                 @Html.ValidationMessageFor(m => m.Diameter, "", new{@class = "text-danger", @style ="font-size:12px;"})
                                             </div>
                                         </div>

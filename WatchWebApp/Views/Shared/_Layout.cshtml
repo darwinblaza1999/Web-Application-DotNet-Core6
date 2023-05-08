@@ -177,10 +177,6 @@
     <script src="~/js/main.js"></script>
     <!--===============================================================================================-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.3/dist/sweetalert2.all.min.js"></script>
-@*    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.js"></script>*@
-@*    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js" 
-    integrity="sha512-rstIgDs0xPgmG6RX1Aba4KV5cWJbAMcvRCVmglpam9SoHZiUCyQVDdH2LPlxoHtrv17XWblE/V/PP+Tr04hbtA==" 
-    crossorigin="anonymous" referrerpolicy="no-referrer"></script>*@
     <!--===============================================================================================-->
     <script>
         'use strict'
@@ -229,6 +225,7 @@
             var height = $('.he')
             var weight = $('.we')
             var thick = $('.th')
+            var diameter = $('.di')
 
             // handle keyup
             height.on("keyup", function () {
@@ -266,6 +263,15 @@
                     thick.val(thick.val().substring(0, thick.val().length - 1));
                 }
             })
+
+            diameter.on("keyup", function () {
+                if (isNaN(diameter.val())) {
+                    diameter.val(0);
+                }
+                if (diameter.val().indexOf(".") > -1 && (diameter.val().split('.')[1].length > 2)) {
+                    diameter.val(diameter.val().substring(0, diameter.val().length - 1));
+                }
+            })
         }
     </script>
 
@@ -280,10 +286,10 @@
 
     @section Scripts {
         @{
-            @await RenderSectionAsync("Scripts", required: false);
             await Html.RenderPartialAsync("_ValidationScriptsPartial");
         }
-    }
+            @await RenderSectionAsync("Scripts", required: false);
+        }
 
 </body>
 </html>

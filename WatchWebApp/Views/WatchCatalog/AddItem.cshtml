@@ -95,7 +95,7 @@
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     @Html.LabelFor(m => m.Diameter, new { @class = "small mb-1" })
-                                    @Html.TextBoxFor(m => m.Diameter, new { @class = "form-control" })
+                                    @Html.TextBoxFor(m => m.Diameter, new { @class = "form-control di", @onkeypress="return isNumberKey(event)", @onkeyup="limitDec(this.id)", @placeholder = "0.00"})
                                     @Html.ValidationMessageFor(m => m.Diameter, "", new{@class = "text-danger", @style ="font-size:10px;"})
                                 </div>
                             </div>

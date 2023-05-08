@@ -202,13 +202,13 @@
                                 showConfirmButton: false,
                                 timer: 4000
                             })
-                            window.location.href = Watch_Url.view_url;
+                            window.location.href = Watch_Url.getdetails_url;
                         }
                         else {
                             console.log(result, "test");
                             Swal.fire({
                                 icon: 'error',
-                                title: 'Unable to update details' + result.response.data.message,
+                                title: 'Unable to update details ' + result.response.messge,
                                 showConfirmButton: false,
                                 timer: 4000
                             });

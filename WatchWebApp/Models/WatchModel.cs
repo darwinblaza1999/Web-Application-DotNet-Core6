@@ -78,8 +78,8 @@ namespace WatchWebApp.Models
         public decimal Height { get; set; }
 
         [Required]
-        [Display(Name = "Diameter")]
-        [DataType(DataType.Text)]
+        [Range(1, float.MaxValue, ErrorMessage = "Please enter a value greater than 0")]
+        [Display(Name = "Diameter(cm)")]
         public string? Diameter { get; set; }
 
         [Required]
