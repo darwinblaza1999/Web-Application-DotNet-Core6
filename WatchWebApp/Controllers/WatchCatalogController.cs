@@ -39,51 +39,42 @@ namespace WatchWebApp.Controllers
         public async Task<IActionResult> UpdateItem([FromBody]WatchModel2 model2)
         {
             var response = new Response<object>();
-            ViewBag.msgerror = null;
-            if (ModelState.IsValid)
+            #region Get Token Bearer
+            var token = await _adapter.token.GetToken();
+            if (token.Data != string.Empty && token.isSuccess)
             {
-                #region Get Token Bearer
-                var token = await _adapter.token.GetToken();
-                if (token.Data != string.Empty && token.isSuccess)
+                if (model2.File == null)
                 {
-                    if (model2.File == null)
+                    #region Update item details
+                    var result = await _adapter.watch.UpdateItem(model2, token.Data);
+                    if (result.isSuccess == true)
                     {
-                        #region Update item details
-                        var result = await _adapter.watch.UpdateItem(model2, token.Data);
-                        if (result.isSuccess == true)
+                        var data = JsonConvert.DeserializeObject<APIResponse<object>>(result.Data);
+                        if (data.Code != 10)
                         {
-                            var data = JsonConvert.DeserializeObject<APIResponse<object>>(result.Data);
-                            if (data.Code != 10)
-                            {
-                                response.isSuccess = false;
-                                response.Message = data.DeveloperMessage;
-                            }
-                            else
-                            {
-                                response.isSuccess = true;
-                                response.Message = data.DeveloperMessage;
-                            }
+                            response.isSuccess = false;
+                            response.Message = data.DeveloperMessage;
                         }
                         else
                         {
-                            response.isSuccess = false;
-                            response.Message = result.Message;
+                            response.isSuccess = true;
+                            response.Message = data.DeveloperMessage;
                         }
-                        #endregion
                     }
+                    else
+                    {
+                        response.isSuccess = false;
+                        response.Message = result.Message;
+                    }
+                    #endregion
                 }
-                else
-                {
-                    response.isSuccess = false;
-                    response.Message = token.Message;
-                }
-                #endregion
             }
             else
             {
                 response.isSuccess = false;
-                response.Message = "Error while validating data, please try again!.";
+                response.Message = token.Message;
             }
+            #endregion
             return Json(new { response });
         }
 
