@@ -203,6 +203,7 @@
                                 timer: 4000
                             })
                             window.location.href = Watch_Url.getdetails_url;
+                            //return result.response.data;
                         }
                         else {
                             console.log(result, "test");

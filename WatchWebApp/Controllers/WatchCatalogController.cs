@@ -38,6 +38,7 @@ namespace WatchWebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdateItem([FromBody]WatchModel2 model2)
         {
+            ViewBag.ItemNo = null;
             var response = new Response<object>();
             #region Get Token Bearer
             var token = await _adapter.token.GetToken();
@@ -49,7 +50,7 @@ namespace WatchWebApp.Controllers
                     var result = await _adapter.watch.UpdateItem(model2, token.Data);
                     if (result.isSuccess == true)
                     {
-                        var data = JsonConvert.DeserializeObject<APIResponse<object>>(result.Data);
+                        var data = JsonConvert.DeserializeObject<APIResponse<WatchModel2>>(result.Data);
                         if (data.Code != 10)
                         {
                             response.isSuccess = false;
@@ -57,6 +58,7 @@ namespace WatchWebApp.Controllers
                         }
                         else
                         {
+                            response.Data = data.Data;
                             response.isSuccess = true;
                             response.Message = data.DeveloperMessage;
                         }
@@ -190,6 +192,8 @@ namespace WatchWebApp.Controllers
             #endregion
 
             ViewBag.msgerror = response.Message;
+            if (response.Data == null)
+                return RedirectToAction("Index", "Home", null);
             return View(response.Data);
         }
 
